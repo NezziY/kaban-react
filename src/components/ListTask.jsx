@@ -9,16 +9,10 @@ const ListTask = ({ tasks, setTasks }) => {
     const [closed, setClosed] = useState([]);
 
     useEffect(() => {
-
-        const fTodos = tasks.filter((task) => task.status === "todo");
-        const fInProgress = tasks.filter((task) => task.status === "inprogress");
-        const fClosed = tasks.filter((task) => task.status === "closed");
-
-        setTodos(fTodos)
-        setInProgress(fInProgress)
-        setClosed(fClosed)
-
-    }, [tasks])
+        setTodos(tasks.filter((task) => task.status === "todo"));
+        setInProgress(tasks.filter((task) => task.status === "inprogress"));
+        setClosed(tasks.filter((task) => task.status === "closed"));
+    }, [tasks]);
 
     const statuses = ["todo", "inprogress", "closed"]
 
@@ -65,23 +59,23 @@ export default ListTask;
         tasksToMap = closed
     }
 
-    const addItemToSection = (id) =>{
-        setTasks(prev =>{
-            
-            const mTasks = prev.map(t => {
-                if(t.id === id){
-                    return{...t, status: status}
+    const addItemToSection = (id) => {
+        setTasks((prev) => {
+            const updatedTasks = prev.map((t) => {
+                if (t.id === id) {
+                    return { ...t, status: status };
                 }
-                return t
-            })
-
-            localStorage.setItem("task", JSON)
-            
-            toast("Nuevo Status de la Tarea", {icon: "😎"})
-
-            return mTasks;
-        })
+                return t;
+            });
+    
+            localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    
+            toast("Nuevo Status de la Tarea", { icon: "😎" });
+    
+            return updatedTasks;
+        });
     };
+    
 
     return (
     <div 
@@ -98,7 +92,7 @@ export default ListTask;
 
 const Header = ({ text, bg, count }) => {
     return (
-    <div className={`${bg} flex items-center h-12 pl-4 rounded-md uppercase text-sm text-white`}>
+    <div className={`${bg} flex items-center justify-between h-12 px-4 rounded-md uppercase text-sm text-white`}>
         {text}
         <div className="ml-2 bg-white w-5 h-5 text-black rounded-full flex  justify-center">
             {count}
