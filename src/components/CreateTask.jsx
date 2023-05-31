@@ -40,14 +40,15 @@ const CreateTask = ({ tasks, setTasks }) => {
     }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="flex">
         <input 
         type='text' 
-        className='border-2 border-slate-400 bg-slate-100 rounded-md mr-4 h-12 w-64 px-1'
+        className='border-2 border-slate-400 bg-slate-100 rounded-l-md h-12 w-52 pl-3'
+        placeholder="Tarea Nueva..."
         value={task.name}
         onChange={(e)=> setTask({...task, id: uuidv4(), name: e.target.value})}
         />
-        <button className="bg-cyan-600 rounded-md px-4 h-12 text-white">Tarea +</button>
+        <button className="bg-cyan-600 rounded-r-md px-4 h-12 text-white">+</button>
     </form>
   )
 }

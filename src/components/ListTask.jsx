@@ -86,7 +86,7 @@ export default ListTask;
     return (
     <div 
         ref={drop} 
-        className={`w-64 rounded-md p-2 ${isOver ? "bg-neutral-300" : ""}`}
+        className={`w-full sm:w-64 rounded-md p-2 ${isOver ? "bg-neutral-300" : ""}`}
     >
         <Header text={text} bg={bg} count={tasksToMap.length} />
         {tasksToMap.length >0 && 
@@ -100,7 +100,7 @@ const Header = ({ text, bg, count }) => {
     return (
     <div className={`${bg} flex items-center h-12 pl-4 rounded-md uppercase text-sm text-white`}>
         {text}
-        <div className="ml-2 bg-white w-5 h-5 text-black rounded-full flex items-center justify-center">
+        <div className="ml-2 bg-white w-5 h-5 text-black rounded-full flex  justify-center">
             {count}
         </div>
     </div>
