@@ -18,9 +18,9 @@ const SetDate = () => {
   });
 
   return (
-    <div>
-      <p className='text-3xl font-bold'>Planeador de Tareas</p>
-        <div className='text-xl capitalize'>{formattedDate}</div>
+    <div className='mx-auto'>
+      <p className='text-2xl text-zinc-900 font-bold'>Planeador</p>
+        <div className='capitalize'>{formattedDate}</div>
     </div>
   );
 };
