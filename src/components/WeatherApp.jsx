@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import search_icon from "../assets/search.png";
 import clear_icon from "../assets/clear.png";
 import cloud_icon from "../assets/cloud.png";
@@ -12,7 +12,11 @@ import humidity_icon from "../assets/humidity.png";
 export const WeatherApp = () => {
   let api_key = "d526b3ca5fea41b8b93f133c4046b0c2";
 
-  const [wicon, sertWicon] = useState(cloud_icon);
+  const [wicon, setWicon] = useState(cloud_icon);
+  const [temp, setTemp] = useState("");
+  const [location, setLocation] = useState("");
+  const [wind, setWind] = useState("");
+  const [humidity, setHumidity] = useState("");
 
   const search = async () => {
     const element = document.getElementsByClassName("cityInput");
@@ -23,59 +27,78 @@ export const WeatherApp = () => {
 
     let response = await fetch(url);
     let data = await response.json();
-    const humidity = document.getElementsByClassName("humidity-percent");
-    const wind = document.getElementsByClassName("wind-rate");
-    const tempertature = document.getElementsByClassName("wethear-temp");
-    const location = document.getElementsByClassName("wethear-location");
 
-    humidity[0].innerHTML = data.main.humidity + " %";
-    wind[0].innerHTML = Math.floor(data.wind.speed) + " km/h";
-    tempertature[0].innerHTML = Math.floor(data.main.temp) + "°";
-    location[0].innerHTML = data.name;
+    setTemp(Math.floor(data.main.temp));
+    setLocation(data.name);
+    setWind(Math.floor(data.wind.speed));
+    setHumidity(data.main.humidity);
 
-    if (data.weather[0].icon === "01d" ||
-     data.weather[0].icon === "01n") {
-      sertWicon(clear_icon);
+    if (data.weather[0].icon === "01d" || data.weather[0].icon === "01n") {
+      setWicon(clear_icon);
     } else if (
-      data.weather[0].icon === "02d" ||
-      data.weather[0].icon === "02n"
+      data.weather[0].icon === "02d" || data.weather[0].icon === "02n"
     ) {
-      sertWicon(cloud_icon);
+      setWicon(cloud_icon);
     } else if (
-      data.weather[0].icon === "03d" ||
-      data.weather[0].icon === "03n"
+      data.weather[0].icon === "03d" || data.weather[0].icon === "03n"
     ) {
-      sertWicon(drizzle_icon);
+      setWicon(drizzle_icon);
     } else if (
-      data.weather[0].icon === "04d" ||
-      data.weather[0].icon === "04n"
+      data.weather[0].icon === "04d" || data.weather[0].icon === "04n"
     ) {
-      sertWicon(drizzle_icon);
+      setWicon(drizzle_icon);
     } else if (
-      data.weather[0].icon === "09d" ||
-      data.weather[0].icon === "09n"
+      data.weather[0].icon === "09d" || data.weather[0].icon === "09n"
     ) {
-      sertWicon(rain_icon);
+      setWicon(rain_icon);
     } else if (
-      data.weather[0].icon === "10d" ||
-      data.weather[0].icon === "10n"
+      data.weather[0].icon === "10d" || data.weather[0].icon === "10n"
     ) {
-      sertWicon(rain_icon);
-    }
-    else if (
-      data.weather[0].icon === "11d" ||
-      data.weather[0].icon === "11n"
-    ) {
-      sertWicon(thunder_icon);
+      setWicon(rain_icon);
     } else if (
-      data.weather[0].icon === "13d" ||
-      data.weather[0].icon === "13n"
+      data.weather[0].icon === "11d" || data.weather[0].icon === "11n"
     ) {
-      sertWicon(snow_icon);
+      setWicon(thunder_icon);
+    } else if (
+      data.weather[0].icon === "13d" || data.weather[0].icon === "13n"
+    ) {
+      setWicon(snow_icon);
     } else {
-      sertWicon(clear_icon);
+      setWicon(clear_icon);
     }
   };
+
+  useEffect(() => {
+    // Cargar los datos del localStorage cuando el componente se monta
+    const savedTemp = localStorage.getItem("temp");
+    if (savedTemp) setTemp(savedTemp);
+
+    const savedLocation = localStorage.getItem("location");
+    if (savedLocation) setLocation(savedLocation);
+
+    const savedWind = localStorage.getItem("wind");
+    if (savedWind) setWind(savedWind);
+
+    const savedHumidity = localStorage.getItem("humidity");
+    if (savedHumidity) setHumidity(savedHumidity);
+  }, []);
+
+  // Guardar los datos en localStorage cuando cambian
+  useEffect(() => {
+    localStorage.setItem("temp", temp);
+  }, [temp]);
+
+  useEffect(() => {
+    localStorage.setItem("location", location);
+  }, [location]);
+
+  useEffect(() => {
+    localStorage.setItem("wind", wind);
+  }, [wind]);
+
+  useEffect(() => {
+    localStorage.setItem("humidity", humidity);
+  }, [humidity]);
 
   return (
     <div className="flex flex-col items-center">
@@ -99,11 +122,11 @@ export const WeatherApp = () => {
 
       <div className="flex flex-col justify-center">
         <div className="wethear-location text-white font-bold text-2xl">
-          London
+          {location}
         </div>
         <div className="weather-icon flex items-center text-white font-bold">
-          <img src={wicon} style={{ width: "120px", height: "120px" }} />
-          <div className="wethear-temp text-6xl">24°</div>
+          <img src={wicon} style={{ width: "120px", height: "120px" }} alt="weather icon" />
+          <div className="wethear-temp text-6xl">{temp}°</div>
         </div>
 
         <div className="flex justify-center gap-4 pl-4">
@@ -111,17 +134,18 @@ export const WeatherApp = () => {
             <img
               src={humidity_icon}
               style={{ width: "20px", height: "20px" }}
+              alt="humidity icon"
             />
             <div className="text-white text-sm font-semibold">
-              <div className="humidity-percent">64%</div>
+              <div className="humidity-percent">{humidity}%</div>
               <div>Humedad</div>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <img src={wind_icon} style={{ width: "24px", height: "24px" }} />
+            <img src={wind_icon} style={{ width: "24px", height: "24px" }} alt="wind icon" />
             <div className="text-white text-sm font-semibold">
-              <div className="wind-rate">18 km</div>
+              <div className="wind-rate">{wind} km/h</div>
               <div>Viento</div>
             </div>
           </div>

@@ -38,7 +38,7 @@ const CreateTask = ({ tasks, setTasks }) => {
 
   return (
     <form onSubmit={handleSubmit} className="flex mx-auto">
-      <div class="pt-2 relative mx-auto text-gray-600">
+      <div className="pt-2 relative mx-auto text-gray-600">
         <input
           type="text"
           className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-full text-sm focus:outline-none"
