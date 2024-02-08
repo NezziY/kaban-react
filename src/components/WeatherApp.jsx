@@ -5,13 +5,16 @@ import cloud_icon from "../assets/cloud.png";
 import drizzle_icon from "../assets/drizzle.png";
 import rain_icon from "../assets/rain.png";
 import snow_icon from "../assets/snow.png";
+import thunder_icon from "../assets/thunder.png";
 import wind_icon from "../assets/wind.png";
 import humidity_icon from "../assets/humidity.png";
 
 export const WeatherApp = () => {
   let api_key = "d526b3ca5fea41b8b93f133c4046b0c2";
 
-  const [wicon, setWicon] = useState(localStorage.getItem("weatherIcon") || cloud_icon);
+  const [wicon, setWicon] = useState(
+    localStorage.getItem("weatherIcon") || cloud_icon
+  );
 
   const search = async () => {
     const element = document.getElementsByClassName("cityInput");
@@ -59,6 +62,11 @@ export const WeatherApp = () => {
       data.weather[0].icon === "10n"
     ) {
       setWicon(rain_icon);
+    } else if (
+      data.weather[0].icon === "11d" ||
+      data.weather[0].icon === "11n"
+    ) {
+      setWicon(thunder_icon);
     } else if (
       data.weather[0].icon === "13d" ||
       data.weather[0].icon === "13n"
