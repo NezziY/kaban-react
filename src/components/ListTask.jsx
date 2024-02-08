@@ -43,19 +43,19 @@ const Section = ({ status, tasks, setTasks, todos, inProgress, closed }) => {
     }),
   }));
 
-  let text = "Pendientes";
-  let bg = "bg-red-400";
+  let text = "Estudio";
+  let bg = "bg-cyan-400";
   let tasksToMap = todos;
 
   if (status === "inprogress") {
-    text = "En Progreso";
-    bg = "bg-orange-400";
+    text = "Trabajos";
+    bg = "bg-rose-400";
     tasksToMap = inProgress;
   }
 
   if (status === "closed") {
-    text = "Finalizadas";
-    bg = "bg-lime-600";
+    text = "Pagos";
+    bg = "bg-amber-400";
     tasksToMap = closed;
   }
 
@@ -93,7 +93,7 @@ const Section = ({ status, tasks, setTasks, todos, inProgress, closed }) => {
 const Header = ({ text, bg, count }) => {
   return (
     <div
-      className={`${bg} flex items-center justify-between h-12 px-4 rounded-md uppercase text-sm text-white`}
+      className={`${bg} flex items-center justify-between h-12 px-4 rounded-md uppercase text-sm font-semibold`}
     >
       {text}
       <div className="ml-2 bg-white w-5 h-5 text-black rounded-full flex  justify-center">

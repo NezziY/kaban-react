@@ -24,12 +24,12 @@ function App() {
       <DndProvider backend={HTML5Backend}>
         <Toaster />
 
-        <div className="bg-neutral-400 py-4 flex flex-col-reverse md:flex md:flex-row">
+        <div className="bg-blue-300 py-4 flex flex-col-reverse md:flex md:flex-row">
           <CreateTask tasks={tasks} setTasks={setTasks} />
           <SetDate />
         </div>
 
-        <div className="bg-neutral-200 h-screen flex flex-col p-8 md:p-16 ">
+        <div className="bg-neutral-100 h-screen flex flex-col p-8 md:p-16 ">
           <ListTask tasks={tasks} setTasks={setTasks} />
         </div>
       </DndProvider>

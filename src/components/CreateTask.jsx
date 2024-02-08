@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { v4 as uuidv4 } from 'uuid';
-
+import { MdAdd } from "react-icons/md";
 
 const CreateTask = ({ tasks, setTasks }) => {
 
@@ -48,7 +48,7 @@ const CreateTask = ({ tasks, setTasks }) => {
         value={task.name}
         onChange={(e)=> setTask({...task, id: uuidv4(), name: e.target.value})}
         />
-        <button className="bg-cyan-600 rounded-r-md px-4 h-12 text-white">+</button>
+        <button className="bg-gray-600 rounded-r-md px-4 h-12 text-white"><MdAdd size={25}/></button>
     </form>
   )
 }
