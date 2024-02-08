@@ -6,6 +6,7 @@ import drizzle_icon from "../assets/drizzle.png";
 import rain_icon from "../assets/rain.png";
 import snow_icon from "../assets/snow.png";
 import wind_icon from "../assets/wind.png";
+import thunder_icon from "../assets/thunder.png";
 import humidity_icon from "../assets/humidity.png";
 
 export const WeatherApp = () => {
@@ -32,7 +33,8 @@ export const WeatherApp = () => {
     tempertature[0].innerHTML = Math.floor(data.main.temp) + "°";
     location[0].innerHTML = data.name;
 
-    if (data.weather[0].icon === "01d" || data.weather[0].icon === "01n") {
+    if (data.weather[0].icon === "01d" ||
+     data.weather[0].icon === "01n") {
       sertWicon(clear_icon);
     } else if (
       data.weather[0].icon === "02d" ||
@@ -59,6 +61,12 @@ export const WeatherApp = () => {
       data.weather[0].icon === "10n"
     ) {
       sertWicon(rain_icon);
+    }
+    else if (
+      data.weather[0].icon === "11d" ||
+      data.weather[0].icon === "11n"
+    ) {
+      sertWicon(thunder_icon);
     } else if (
       data.weather[0].icon === "13d" ||
       data.weather[0].icon === "13n"
@@ -74,7 +82,7 @@ export const WeatherApp = () => {
       <div className="pt-2 relative mx-auto text">
         <input
           type="text"
-          className="border-2 border-slate-300 bg-white h-10 px-5 pr-16 rounded-full text-sm focus:outline-none"
+          className="cityInput border-2 border-slate-300 bg-white h-10 px-5 pr-16 rounded-full text-sm focus:outline-none"
         />
         <button
           className="absolute right-0 top-0 mt-5 mr-4"
@@ -82,7 +90,10 @@ export const WeatherApp = () => {
             search();
           }}
         >
-          <img src={search_icon} className="text-gray-600 h-4 w-4 fill-current"/>
+          <img
+            src={search_icon}
+            className="text-gray-600 h-4 w-4 fill-current"
+          />
         </button>
       </div>
 
