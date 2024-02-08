@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import SetDate from "./components/SetDate";
+import { WeatherApp } from "./components/WeatherApp";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -24,9 +25,19 @@ function App() {
       <DndProvider backend={HTML5Backend}>
         <Toaster />
 
-        <div className="bg-blue-300 py-4 flex flex-col-reverse md:flex md:flex-row">
-          <CreateTask tasks={tasks} setTasks={setTasks} />
-          <SetDate />
+        <div className="bg-blue-300 py-4 flex flex-col-reverse md:justify-around md:flex md:flex-row text-center items-center">
+          <div>
+           
+            <CreateTask tasks={tasks} setTasks={setTasks} />
+            <div className="mt-4">
+            <SetDate />
+            </div>
+           
+          </div>
+          <div>
+            <WeatherApp />
+          </div>
+          
         </div>
 
         <div className="bg-neutral-100 h-screen flex flex-col p-8 md:p-16 ">

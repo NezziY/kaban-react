@@ -19,8 +19,7 @@ const SetDate = () => {
 
   return (
     <div className='mx-auto'>
-      <p className='text-2xl text-zinc-900 font-bold'>Planeador</p>
-        <div className='capitalize'>{formattedDate}</div>
+        <div className='capitalize font-semibold text-sm'>{formattedDate}</div>
     </div>
   );
 };
