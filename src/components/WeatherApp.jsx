@@ -66,39 +66,45 @@ export const WeatherApp = () => {
     } else {
       setWicon(clear_icon);
     }
+
+    // Guardar los datos en el localStorage
+    localStorage.setItem("weatherData", JSON.stringify(data));
   };
 
   useEffect(() => {
     // Cargar los datos del localStorage cuando el componente se monta
-    const savedTemp = localStorage.getItem("temp");
-    if (savedTemp) setTemp(savedTemp);
+    const savedData = localStorage.getItem("weatherData");
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      setTemp(Math.floor(parsedData.main.temp));
+      setLocation(parsedData.name);
+      setWind(Math.floor(parsedData.wind.speed));
+      setHumidity(parsedData.main.humidity);
 
-    const savedLocation = localStorage.getItem("location");
-    if (savedLocation) setLocation(savedLocation);
-
-    const savedWind = localStorage.getItem("wind");
-    if (savedWind) setWind(savedWind);
-
-    const savedHumidity = localStorage.getItem("humidity");
-    if (savedHumidity) setHumidity(savedHumidity);
+      if (parsedData.weather && parsedData.weather[0]) {
+        const iconCode = parsedData.weather[0].icon;
+        if (iconCode === "01d" || iconCode === "01n") {
+          setWicon(clear_icon);
+        } else if (iconCode === "02d" || iconCode === "02n") {
+          setWicon(cloud_icon);
+        } else if (iconCode === "03d" || iconCode === "03n") {
+          setWicon(drizzle_icon);
+        } else if (iconCode === "04d" || iconCode === "04n") {
+          setWicon(drizzle_icon);
+        } else if (iconCode === "09d" || iconCode === "09n") {
+          setWicon(rain_icon);
+        } else if (iconCode === "10d" || iconCode === "10n") {
+          setWicon(rain_icon);
+        } else if (iconCode === "11d" || iconCode === "11n") {
+          setWicon(thunder_icon);
+        } else if (iconCode === "13d" || iconCode === "13n") {
+          setWicon(snow_icon);
+        } else {
+          setWicon(clear_icon);
+        }
+      }
+    }
   }, []);
-
-  // Guardar los datos en localStorage cuando cambian
-  useEffect(() => {
-    localStorage.setItem("temp", temp);
-  }, [temp]);
-
-  useEffect(() => {
-    localStorage.setItem("location", location);
-  }, [location]);
-
-  useEffect(() => {
-    localStorage.setItem("wind", wind);
-  }, [wind]);
-
-  useEffect(() => {
-    localStorage.setItem("humidity", humidity);
-  }, [humidity]);
 
   return (
     <div className="flex flex-col items-center">
